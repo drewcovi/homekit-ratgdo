@@ -167,6 +167,9 @@ void light_state_set(const homekit_value_t value) {
 }
 
 void notify_homekit_obstruction() {
+    if (garage_door.current_state == CURR_CLOSED || garage.current_state == CURR_OPENING){
+        return;
+    }
     homekit_characteristic_notify(
         &obstruction_detected,
         HOMEKIT_BOOL_CPP(garage_door.obstructed)
